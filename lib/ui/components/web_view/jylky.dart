@@ -1,10 +1,9 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
-// import 'package:full_webview/check_internet.dart';
 
 class WebExampleTwo extends StatefulWidget {
-  WebExampleTwo({Key? key}) : super(key: key);
+  const WebExampleTwo({Key? key}) : super(key: key);
 
   @override
   _WebExampleTwoState createState() => _WebExampleTwoState();
@@ -20,7 +19,8 @@ class _WebExampleTwoState extends State<WebExampleTwo> {
 
   InAppWebViewGroupOptions options = InAppWebViewGroupOptions(
       crossPlatform: InAppWebViewOptions(
-        userAgent: 'Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/62.0.3202.94 Mobile Safari/537.36',
+        userAgent:
+            'Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/62.0.3202.94 Mobile Safari/537.36',
         useShouldOverrideUrlLoading: true,
         mediaPlaybackRequiresUserGesture: false,
         javaScriptEnabled: true,
@@ -61,18 +61,13 @@ class _WebExampleTwoState extends State<WebExampleTwo> {
     //   }
     // });
 
-
-
-
-
     pullToRefreshController = PullToRefreshController(
       options: PullToRefreshOptions(color: Colors.blue),
       onRefresh: () async {
         if (Platform.isAndroid) {
           _webViewController?.reload();
         } else if (Platform.isIOS) {
-          _webViewController?.loadUrl(
-              urlRequest: URLRequest(url: await _webViewController?.getUrl()));
+          _webViewController?.loadUrl(urlRequest: URLRequest(url: await _webViewController?.getUrl()));
         }
       },
     );
@@ -94,15 +89,13 @@ class _WebExampleTwoState extends State<WebExampleTwo> {
                   ? LinearProgressIndicator(
                       value: progress,
                       backgroundColor: Colors.white,
-                      valueColor:
-                          AlwaysStoppedAnimation<Color>(Colors.green[800]!),
+                      valueColor: AlwaysStoppedAnimation<Color>(Colors.green[800]!),
                     )
                   : Center(),
               Expanded(
                 child: InAppWebView(
                   key: webViewKey,
-                  initialUrlRequest: URLRequest(
-                      url: Uri.parse("https://jylky.kg")),
+                  initialUrlRequest: URLRequest(url: Uri.parse("https://jylky.kg")),
                   initialOptions: options,
                   pullToRefreshController: pullToRefreshController,
                   onWebViewCreated: (controller) {
@@ -114,11 +107,8 @@ class _WebExampleTwoState extends State<WebExampleTwo> {
                       urlController.text = this.url;
                     });
                   },
-                  androidOnPermissionRequest:
-                      (controller, origin, resources) async {
-                    return PermissionRequestResponse(
-                        resources: resources,
-                        action: PermissionRequestResponseAction.GRANT);
+                  androidOnPermissionRequest: (controller, origin, resources) async {
+                    return PermissionRequestResponse(resources: resources, action: PermissionRequestResponseAction.GRANT);
                   },
                   onLoadStop: (controller, url) async {
                     pullToRefreshController.endRefreshing();
